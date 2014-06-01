@@ -10,11 +10,24 @@ meta_url="/rest/metadata/";
 $(document).ready(function(){
     $.getJSON(meta_url+"book",function(data){
     		$.each(data, function(key, value){
-    			if(key!="author" && key!="genres"){
+    			if(key!="author" && key!="genres"&& key!="_authors_id"){
     				$("div.book_div").append("<br/>Please enter " + key + ":"+"<input type='text' name='"+key+"'"+">");
     			}
+    			
+    				
     		});
     });
+  $.getJSON(base_url+"authors",function(data1){
+	  $("div.book_div").append("<select>");
+    	$.each( data1, function( count, object ) { 
+    		if(object._id != undefined) {//make sure isbn is valid
+    			//build the URL for the book
+    			$("div.books_div").append( "<br/><option value='"+object._id+"'>"+ object.fname+"</option>"  );
+    		}
+    	}$("div.book_div").append("</select>");
+    	);
+});
+    
     $.fn.serializeObject = function()
     {
        var o = {};
@@ -60,9 +73,16 @@ $(document).ready(function(){
 <body>
 	<h1 style="text-align: center;">Create a new book</h1>
 	<form id="book_form" method="POST">
-		<div class="book_div"></div>
+		<div class="book_div">
+		
+		</div>
 
 		<input type="Submit">
 	</form>
+	
+	
+	
+	
+	
 </body>
 </html>
