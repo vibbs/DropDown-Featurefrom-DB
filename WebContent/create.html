@@ -10,23 +10,27 @@ meta_url="/rest/metadata/";
 $(document).ready(function(){
     $.getJSON(meta_url+"book",function(data){
     		$.each(data, function(key, value){
-    			if(key!="author" && key!="genres"&& key!="_authors_id"){
+    			if(key!="author" && key!="genres"&& key!="_author_id"){
     				$("div.book_div").append("<br/>Please enter " + key + ":"+"<input type='text' name='"+key+"'"+">");
     			}
     			
     				
     		});
     });
-  $.getJSON(base_url+"authors",function(data1){
-	  $("div.book_div").append("<select>");
+ $.getJSON(base_url+"authors",function(data1){
+	 
     	$.each( data1, function( count, object ) { 
+    	
     		if(object._id != undefined) {//make sure isbn is valid
     			//build the URL for the book
-    			$("div.books_div").append( "<br/><option value='"+object._id+"'>"+ object.fname+"</option>"  );
+    			
+    			$('#result').append("<br><option id="+object._id+ ">"+object.fname+"  "+ object.lname+"</option>"  );
+    			
     		}
-    	}$("div.book_div").append("</select>");
-    	);
-});
+    	});
+    	
+  });
+ 
     
     $.fn.serializeObject = function()
     {
@@ -73,9 +77,13 @@ $(document).ready(function(){
 <body>
 	<h1 style="text-align: center;">Create a new book</h1>
 	<form id="book_form" method="POST">
-		<div class="book_div">
+		<div class="book_div"></div>
+		Please select author
+		<select id=result>
 		
-		</div>
+		
+		</select><br>
+		
 
 		<input type="Submit">
 	</form>

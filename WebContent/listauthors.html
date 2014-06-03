@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-latest.min.js">
+</script>
+<script>
+//we are reusing this URL, somove it to a variable
+base_url="/rest/books/";
+meta_url="/rest/metadata/";
+$(document).ready(function(){
+
+  $.getJSON(base_url+"authors",function(data){
+	 
+    	$.each( data, function() { 
+    		$.each( data, function( count, object ) { 
+        		if(object._id != undefined) {
+    			//build the URL for the book
+        			$("div.authors_list").append( ""+object.fname+"  "+ object.lname+""  );
+        		}});
+    	});
+});
+});
+    
+
+
+</script>
+</head>
+<body>
+	<h1 style="text-align: center;">list all authors</h1>
+	hello
+<div class="authors_list"></div>
+	
+	
+	
+	
+	
+	
+</body>
+</html>
